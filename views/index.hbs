@@ -1,0 +1,52 @@
+<h1>Products</h1>
+{{#if hasProducts}}
+
+
+
+
+<div class="container">
+
+    <div class="row">
+        {{#each products}}
+
+        <div class="col-3">
+            <div class="card mt-3" style="width: 18rem;">
+                <h5 class="card-title text-center">{{title}}</h5>
+                <img src="/{{{imageUrl}}}" style="height:200px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{price}}</h5>
+
+                    <p class="card-text">{{description}}</p>
+                    <div class="row">
+                        <div class="col-6"> <a href="/products/{{id}}" class="btn btn-dark">Details</a></div>
+                <div class="col-6">
+                            
+         <button class="btn btn-dark addToCartBtn" data-id="{{id}}"  data-title="{{title}}"
+                    data-description="{{description}}"
+                    data-price="{{price}}">Add to Cart</button>
+                                <input type="hidden" name="productId" value="{{id}}">
+                            </form>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+
+</div>
+<br>
+
+{{else}}
+<h6>No Products found!</h6>
+{{/if}}
+
+<script src="/javascripts/add-to-cart.js"></script>

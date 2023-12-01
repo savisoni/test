@@ -1,0 +1,39 @@
+ <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a class="active" href="/">Products</a></li>
+
+                {{#if isAuthenticated}}
+                <li class="main-header__item"><a class="active" href="/cart">Cart</a></li>
+                <li class="main-header__item"><a class="active" href="/orders">Orders</a></li>
+                <li class="main-header__item"><a class="active" href="/add-product">Add Product</a></li>
+                <li class="main-header__item"><a class="active" href="/my-products">My Products</a></li>
+             {{/if}}
+           
+            </ul>
+            <ul class="main-header__item-list">
+                <li class="main-header__item">
+
+{{#if isAuthenticated}}
+
+<form action="/auth/logout" method="post">
+<input type="hidden" name="_csrf" value="*">
+<button type="submit">Logout</button></form></li>
+
+<li class="main-header__item">
+    <a href="/auth/user-profile"class="active">User Profile</a>
+</li>
+{{else}}
+
+<li class="main-header__item">
+    <a href="/auth/login"class="active">Login</a>
+</li>
+<li class="main-header__item">
+    <a href="/auth/signup"class="active">SignUp</a>
+</li>
+
+{{/if}}
+            </ul>
+
+        </nav>
+    </header>

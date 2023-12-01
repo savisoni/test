@@ -1,0 +1,18 @@
+  <div class="col-3">
+            <div class="card mt-3" style="width: 18rem;">
+                <h5 class="card-title text-center">{{title}}</h5>
+                <img src="/{{{imageUrl}}}" style="height:200px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{price}}$</h5>
+                    <p class="card-text">{{description}}</p>
+                    <div class="text-center">
+                        <a href="/edit-product/{{id}}?edit=true" class="btn btn-dark">Edit</a>
+                        <input type="hidden" name="productId" value="{{id}}">
+            <button type="button" class="btn btn-dark mt-2 deleteProduct" data-id="{{id}}">
+                    Delete
+                </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>

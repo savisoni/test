@@ -1,0 +1,55 @@
+<h1>Cart</h1>
+{{#if hasProducts}}
+
+<div class="container">
+
+    <div class="row">
+        {{#each products}}
+        {{log "xsdcfvbgnhngbvcxsdfgh" title}}
+
+        <div class="col-3">
+            <div class="card mt-3" style="width: 18rem;">
+                <h5 class="card-title text-center">{{title}}</h5>
+                <h6 class="card-title text-center">qunatity:{{cartitem.quantity}}</h6>
+                <img src="/{{{imageUrl}}}" style="height:200px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{price}}</h5>
+
+                    <p class="card-text">{{description}}</p>
+                    <div class="row">
+                        <div class="col-6"> <a href="/products/{{id}}" class="btn btn-dark">Details</a></div>
+                        <div class="col-6">
+                             <form action="/cart-delete-item" method="post">
+                    <input type="hidden" name="productId" value="{{id}}" />
+
+                    <button type="submit" class="btn btn-dark">Remove</button>
+                  </form>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+
+</div>
+<br>
+
+ <div class="centered">
+ <a class="btn btn-dark" href="/checkout" id="orderBtn">Order Now!</a>
+
+  </div>
+
+
+
+{{else}}
+<h6>No Products found!</h6>
+{{/if}}

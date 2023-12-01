@@ -1,0 +1,26 @@
+
+
+<form class="product-form" action="/{{#if combine}}edit-product{{else}}add-product{{/if}}" method="POST" enctype="multipart/form-data">
+  <div class="form-control">
+    <label for="title"></label>
+    <input type="text" name="title" id="title"  value="{{#if combine}}{{product.title}}{{/if}}"/>
+  </div> 
+  <div class="form-control">
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image" />
+  </div>
+  <div class="form-control">
+    <label for="price">Price</label>
+    <input type="number" name="price" id="price" step="0.01" value="{{#if combine}}{{product.price}}{{/if}}"/>
+  </div>
+  <div class="form-control">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" rows="5" >{{#if combine}}{{product.description}}{{/if}}</textarea>
+  </div>
+  {{#if combine}}
+  <input type="hidden" name="productId" value="{{product.id}}">
+  {{/if}}
+
+  <button type="submit">{{#if combine}}Edit Product{{else}}Add Product{{/if}}</button>
+ 
+</form>
