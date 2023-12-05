@@ -4,7 +4,6 @@ $(document).on('click', '.deleteProduct', function () {
       type: "DELETE",
       url: `/delete-product/${productId}`,
       success: function (response) {
-        console.log('response----', response);
         location.reload();
       },
       error: function (error) {

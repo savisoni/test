@@ -1,4 +1,6 @@
-<h1>Products</h1>
+{{!-- <h1>Products</h1> --}}
+
+
 {{#if hasProducts}}
 
 
@@ -6,7 +8,7 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="row product-row">
         {{#each products}}
 
         <div class="col-3">
@@ -25,6 +27,7 @@
                     data-description="{{description}}"
                     data-price="{{price}}">Add to Cart</button>
                                 <input type="hidden" name="productId" value="{{id}}">
+                                <input type="hidden" name="isAuthenticated" value="{{../isAuthenticated}}">
                             </form>
                         </div>
 
@@ -50,3 +53,4 @@
 {{/if}}
 
 <script src="/javascripts/add-to-cart.js"></script>
+<script src="/javascripts/index.js"></script>

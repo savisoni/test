@@ -37,3 +37,46 @@
 
         </nav>
     </header>
+
+<div
+  class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last col-md-auto"
+>
+  <form action="/" method="get" autocomplete="off" novalidate id="filterForm">
+
+    {{! <button type="button" class="btn btn-light">Light</button> }}
+    {{! load SVG icon from http://tabler-icons.io/i/search --> }}
+
+    <div class="row" style="margin-top: 10px;">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-light sortButton"
+          name="createdAt"
+        >Sort by date & time</button>
+
+      </div>
+
+     
+    
+      <div class="col col-md-auto">
+
+        <input
+          type="text"
+          class="form-control"
+          id="searchInput"
+          placeholder="Search…"
+          aria-label="Search in website"
+          name="resVal"
+        />
+
+      </div>
+      <div class="col col-lg-2">
+        <button
+          type="button"
+          id="searchButton"
+          class="btn btn-secondary"
+        >Search</button>
+      </div>
+    </div>
+  </form>
+</div>

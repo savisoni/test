@@ -13,9 +13,8 @@ const Cart = sequelize.define("cart", {
 },{paranoid:true});
 
 Cart.associate=(models)=>{
-    console.log("models======================>", models);
     Cart.belongsTo(models.user);
-Cart.belongsToMany(models.product, { through: models.cartitem });
+    Cart.belongsToMany(models.product, { through: models.cartitem });
     
 }
-module.exports=Cart;
+module.exports = Cart;

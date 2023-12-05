@@ -27,7 +27,6 @@ const Product = sequelize.define("product",{
 
 
 Product.associate=(models)=>{
-    console.log("models======================>", models);
     Product.belongsTo(models.user);
     Product.belongsToMany(models.cart , {through:models.cartitem});
     

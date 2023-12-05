@@ -1,0 +1,24 @@
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var stripePubApiKey = getQueryParam('STRIPE_PUB_API_KEY');
+    var stripe = Stripe(stripePubApiKey);
+
+    var orderBtn = document.getElementById('orderBtn');
+    orderBtn.addEventListener("click", function () {
+      stripe.redirectToCheckout({
+        sessionId: '{{sessionId}}',
+      })
+      .then(function (result) {
+        if (result.error) {
+          console.error(result.error.message);
+        }
+      });
+    });
+
+    function getQueryParam(name) {
+      var urlSearchParams = new URLSearchParams(window.location.search);
+      return urlSearchParams.get(name);
+    }
+  });
+</script>

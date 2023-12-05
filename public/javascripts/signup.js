@@ -7,11 +7,10 @@ $(document).ready(function(){
          data: $(this).serialize(),
          success: function (data) {
            
-            console.log("user : ------------------", data)
             alert(data.message)
          },
          error: function (error) {
-           console.error('Error:', error);
+           alert("Sorry ! facing issue for signup")
          }
        });
      });

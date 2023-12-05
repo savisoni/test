@@ -14,10 +14,8 @@ function readModels(){
       models[model.name]=model;
     }
   });
-  // module.exports=models;
   return models;
 }
-console.log("models=====>",models);
 
 
 module.exports = readModels();

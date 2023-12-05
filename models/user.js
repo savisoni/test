@@ -41,7 +41,6 @@ const User = sequelize.define("user", {
 });
 
 User.associate=(models)=>{
-    console.log("models======================>", models);
     User.hasOne(models.cart);
     User.hasMany(models.order);
     User.hasMany(models.product);

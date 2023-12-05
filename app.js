@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 
 let fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-      // console.log(req, 'res')
       cb(null, '\images')
   },
   filename: (req, file, cb) => {
@@ -61,11 +60,9 @@ app.use(authMiddleware);
 app.use("/",mainRouter);
 
 app.use((error, req, res, next) => {
-    console.log("error------>>>>", error);
     const status = error.statusCode || 500;
     const message = error.message;
     const data = error.data;
-    console.log("errorrrfdkslsdfgnmkdlsjhnrbgmvcksjndmf");
     res.status(status).json({ status: status, message: message, data: data });
   });
   

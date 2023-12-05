@@ -14,7 +14,6 @@ const Order = sequelize.define("order", {
 },{paranoid:true});
 
 Order.associate=(models)=>{
-    console.log("models======================>", models);
     Order.belongsToMany(models.product,{through:models.orderitem})
     
 }

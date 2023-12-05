@@ -1,0 +1,28 @@
+<div class="card mt-3" style="width: 18rem;">
+  <h5 class="card-title text-center">{{product.title}}</h5>
+  <img
+    src="/{{{product.imageUrl}}}"
+    style="height:200px"
+    class="card-img-top"
+    alt="..."
+  />
+  <div class="card-body">
+    <h5 class="card-title text-center">{{product.price}}$</h5>
+    <p class="card-text">{{product.description}}</p>
+    <div class="text-center">
+      <a
+        href="/edit-product/{{product.id}}?edit=true"
+        class="btn btn-dark"
+      >Edit</a>
+      <input type="hidden" name="productId" value="{{product.id}}" />
+      <button
+        type="button"
+        class="btn btn-dark mt-2 deleteProduct"
+        data-id="{{product.id}}"
+      >
+        Delete
+      </button>
+    </div>
+
+  </div>
+</div>

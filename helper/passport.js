@@ -15,10 +15,8 @@ module.exports = function(passport) {
     opts.secretOrKey = "mysecretkey";
     passport.use(new jwtStrategy(opts,async(jwtPayload,done)=>{
         try {
-            console.log("jwtPayload", jwtPayload);
             const user = await User.findByPk(jwtPayload.id)
             if (user) {
-                console.log("user=====>", user);
                 return done(null,user)
             }
     
