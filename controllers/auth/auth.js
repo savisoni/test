@@ -23,15 +23,16 @@ exports.getSignUpPage = async (req, res, next) => {
 
 exports.postSignUp = async (req, res, next) => {
   try {
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    
-    const {email, username, password} = req.body;
+
+    const { email, username, password } = req.body;
     const verificationToken = crypto.randomBytes(16).toString("hex");
-    const jwtToken = jwt.sign({ email,verificationToken }, 'mysecretkey', { expiresIn: '1h' });
+    const jwtToken = jwt.sign({ email, verificationToken }, "mysecretkey", {
+      expiresIn: "1h",
+    });
     const user = await User.create({
       email: email,
       username: username,
@@ -59,26 +60,26 @@ exports.verifyUser = async (req, res, next) => {
     }
     const token = req.params.verificationToken;
 
-
     const decoded = jwt.decode(token, { complete: true });
 
     if (!decoded) {
-      return res.status(400).json({ message: 'Invalid token format' });
+      return res.status(400).json({ message: "Invalid token format" });
     }
 
-    jwt.verify(token, 'mysecretkey', async(err, decoded) => {
+    jwt.verify(token, "mysecretkey", async (err, decoded) => {
       if (err) {
-        return res.status(400).json({ message: 'Invalid token' });
+        return res.status(400).json({ message: "Invalid token" });
       }
-
 
       const { email, verificationToken } = decoded;
       const user = await User.findOne({
-        where: { email: email, verificationToken: verificationToken }
+        where: { email: email, verificationToken: verificationToken },
       });
 
       if (!user) {
-        return res.status(404).json({ message: 'User not found or invalid token' });
+        return res
+          .status(404)
+          .json({ message: "User not found or invalid token" });
       }
 
       user.isValid = true;
@@ -86,14 +87,15 @@ exports.verifyUser = async (req, res, next) => {
 
       await user.save();
 
-      res.send(`Email verified successfully! Follow this link <h4><a href="http://localhost:5000/auth/login">link</a></h4> to login.`);
+      res.send(
+        `Email verified successfully! Follow this link <h4><a href="http://localhost:5000/auth/login">link</a></h4> to login.`
+      );
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     next(error);
   }
 };
-
 
 exports.postLogin = async (req, res, next) => {
   try {
@@ -110,21 +112,23 @@ exports.postLogin = async (req, res, next) => {
       expiresIn: "1h",
     });
     res.cookie("jwt", token);
-   let fetchedCart;
-   let cart = await Cart.findOne({ where: { userId: user.id ,deletedAt:null} });
+    let fetchedCart;
+    let cart = await Cart.findOne({
+      where: { userId: user.id, deletedAt: null },
+    });
 
-   if (!cart) {
-     cart = await Cart.create({ userId: user.id });
-   }
-   
-   fetchedCart = cart;
-   
-   if (!cart.userId) {
-     await cart.update({ userId: user.id });
-   }
-   
-   await syncCartWithData(fetchedCart, cartData);
-   
+    if (!cart) {
+      cart = await Cart.create({ userId: user.id });
+    }
+
+    fetchedCart = cart;
+
+    if (!cart.userId) {
+      await cart.update({ userId: user.id });
+    }
+
+    await syncCartWithData(fetchedCart, cartData);
+
     res.json({ message: "success", data: user, cartData: cartData });
   } catch (error) {
     next(error);
@@ -133,9 +137,8 @@ exports.postLogin = async (req, res, next) => {
 
 exports.postResetPassword = async (req, res, next) => {
   try {
-
     const user = await User.findOne({ where: { email: req.body.email } });
-    
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -183,8 +186,6 @@ exports.postResetPassword = async (req, res, next) => {
 
 exports.generateNewPassword = async (req, res, next) => {
   try {
-   
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -231,6 +232,6 @@ exports.postLogout = async (req, res, next) => {
 exports.getProfile = async (req, res, next) => {
   res.render("user-profile", {
     user: req.user,
-    isAuthenticated: req.isAuthenticated
+    isAuthenticated: req.isAuthenticated,
   });
 };

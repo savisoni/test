@@ -13,7 +13,7 @@ const fileHelper = require("../../util/filedelete");
 const stripe = require("stripe")(STRIPE_API_KEY);
 const { Op } = require("sequelize");
 const Filters = (query) => {
-  const { searchKey, sortBy, sortOrder } = query;
+  const { searchKey, sortBy, sortOrder, page, pageSize } = query;
   const options = { where: {}, order: [] };
 
   if (searchKey) {
@@ -27,12 +27,28 @@ const Filters = (query) => {
     options.order.push([sortBy, sortOrder]);
   }
 
+  if (page && pageSize) {
+    const offset = (page - 1) * pageSize;
+    options.offset = offset;
+    options.limit = pageSize;
+  }
+
   return options;
 };
 
+const ITEM_PER_PAGE = 5;
+
 exports.getIndexPage = async (req, res, next) => {
   try {
-    const options = Filters(req.query);
+    const page = +req.query.page || 1;
+    const pageSize = ITEM_PER_PAGE;
+
+    const totalItems = await Product.count();
+    const options = Filters({
+      ...req.query,
+      page,
+      pageSize,
+    });
 
     const products = await Product.findAll(options);
 
@@ -40,6 +56,13 @@ exports.getIndexPage = async (req, res, next) => {
       isAuthenticated: req.isAuthenticated,
       products: products,
       hasProducts: products.length > 0,
+      currentPage: page,
+      totalProducts: totalItems,
+      hasNextPage: pageSize * page < totalItems,
+      hasPreviousPage: page > 1,
+      nextPage: page + 1,
+      previousPage: page - 1,
+      lastPage: Math.ceil(totalItems / pageSize),
     });
   } catch (error) {
     next(error);
@@ -206,7 +229,7 @@ exports.postCart = async (req, res, next) => {
     if (cartItem) {
       if (cartItem.deletedAt !== null) {
         await cartItem.restore();
-        cartItem.quantity=1;
+        cartItem.quantity = 1;
         await cartItem.save();
       } else {
         cartItem.quantity += 1;

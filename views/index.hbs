@@ -1,4 +1,3 @@
-{{!-- <h1>Products</h1> --}}
 
 
 {{#if hasProducts}}
@@ -46,6 +45,38 @@
     </div>
 
 </div>
+<nav aria-label="Page navigation example">
+    
+    <ul class="pagination justify-content-center">
+       {{#if (and (not (eq currentPage 1)) (not (eq previousPage 1)))}}
+        <li class="page-item">
+
+            <a class="page-link" href="?page=1">1</a>
+
+        </li>
+        {{/if}}
+
+
+        {{#if hasPreviousPage}}
+
+        <li class="page-item"><a class="page-link" href="?page={{previousPage}}">{{previousPage}}</a></li>
+        {{/if}}
+       
+        {{#if hasNextPage}}
+
+        <li class="page-item"><a class="page-link" href="?page={{nextPage}}">{{nextPage}}</a></li>
+        {{/if}}
+
+{{#if  (and (not (eq lastPage currentPage)) (not (eq nextPage lastPage)))}}
+        <li class="page-item"><a class="page-link" href="?page={{lastPage}}">{{lastPage}}</a></li>
+
+
+        {{/if}}
+
+    </ul>
+</nav>
+
+
 <br>
 
 {{else}}
